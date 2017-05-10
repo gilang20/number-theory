@@ -32,11 +32,12 @@ iterOrdo a n c
 -- r is modulo primitive root of n when ordo r n == eulerTotient n
 -- Precondition : n > 0, r and n are relatively prime
 -- Without no primitive root cases
-primitiveRoot n = if (even n) then n+1 else iterPR 2 n
+primitiveRoots n = if (even n) then [] else iterPR 2 n
 
 iterPR r n
-    | ordo r n == eulerTotient n = r
+    | r == n = []
+    | ordo r n == eulerTotient n = r : iterPR (r+1) n
     | otherwise = iterPR (r+1) n
     
 -- Main program
-main = print $ primitiveRoot 7
+main = print $ primitiveRoots 7
